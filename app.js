@@ -428,3 +428,36 @@ async function init() {
 
 // Start app
 init();
+
+
+// Tab switching
+function switchTab(tabName) {
+    // Remove active class from all tabs and panes
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+    
+    // Add active class to selected tab and pane
+    const tabBtn = document.querySelector(`[data-tab="${tabName}"]`);
+    const tabPane = document.getElementById(`${tabName}-tab`);
+    
+    if (tabBtn) tabBtn.classList.add('active');
+    if (tabPane) tabPane.classList.add('active');
+    
+    // Haptic feedback
+    if (tg) {
+        tg.HapticFeedback.impactOccurred('light');
+    }
+    
+    console.log(`📱 Switched to tab: ${tabName}`);
+}
+
+// Tab button event listeners
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const tabName = btn.getAttribute('data-tab');
+        switchTab(tabName);
+    });
+});
+
+// Make switchTab available globally
+window.switchTab = switchTab;

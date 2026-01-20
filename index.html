@@ -6,29 +6,91 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="mobile-web-app-capable" content="yes">
-    <title>Тест Камеры TMA</title>
+    <title>Fitness AI Coach</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <div class="app-container">
-        <!-- Header -->
+        <!-- Header with Stats -->
         <header class="header">
-            <h1>🍽️ Fitness AI Camera</h1>
-            <p class="subtitle">Снимите вашу еду для анализа</p>
-        </header>
-
-        <!-- Camera Preview Container -->
-        <div class="camera-container">
-            <div class="camera-circle">
-                <video id="cameraPreview" autoplay playsinline muted></video>
-                <div id="recordingOverlay" class="recording-overlay hidden">
-                    <div class="timer" id="timer">10</div>
+            <div class="header-top">
+                <div class="user-info">
+                    <div class="avatar">👤</div>
+                    <div class="user-details">
+                        <h2 class="user-name">Привет!</h2>
+                        <p class="user-streak">🔥 Streak: 7 дней</p>
+                    </div>
+                </div>
+                <button class="settings-icon" id="settingsBtn">⚙️</button>
+            </div>
+            
+            <div class="daily-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">🔥</div>
+                    <div class="stat-info">
+                        <span class="stat-value">1,240</span>
+                        <span class="stat-label">ккал</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🍗</div>
+                    <div class="stat-info">
+                        <span class="stat-value">65г</span>
+                        <span class="stat-label">белки</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💧</div>
+                    <div class="stat-info">
+                        <span class="stat-value">1.5л</span>
+                        <span class="stat-label">вода</span>
+                    </div>
                 </div>
             </div>
-            <div id="errorMessage" class="error-message hidden"></div>
-        </div>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="camera">
+                <span class="tab-icon">📸</span>
+                <span class="tab-label">Камера</span>
+            </button>
+            <button class="tab-btn" data-tab="meals">
+                <span class="tab-icon">🍽️</span>
+                <span class="tab-label">Приемы</span>
+            </button>
+            <button class="tab-btn" data-tab="progress">
+                <span class="tab-icon">📊</span>
+                <span class="tab-label">Прогресс</span>
+            </button>
+            <button class="tab-btn" data-tab="profile">
+                <span class="tab-icon">👤</span>
+                <span class="tab-label">Профиль</span>
+            </button>
+        </nav>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Camera Tab -->
+            <div class="tab-pane active" id="camera-tab">
+
+                <div class="section-title">
+                    <h3>📸 Снимите вашу еду</h3>
+                    <p class="section-subtitle">AI проанализирует калории и макросы</p>
+                </div>
+
+                <!-- Camera Preview Container -->
+                <div class="camera-container">
+                    <div class="camera-circle">
+                        <video id="cameraPreview" autoplay playsinline muted></video>
+                        <div id="recordingOverlay" class="recording-overlay hidden">
+                            <div class="timer" id="timer">10</div>
+                        </div>
+                    </div>
+                    <div id="errorMessage" class="error-message hidden"></div>
+                </div>
 
         <!-- Controls -->
         <div class="controls">
@@ -75,12 +137,178 @@
             </div>
         </div>
 
-        <!-- Status -->
-        <div class="status" id="status">
-            <p>Инициализация...</p>
+                <!-- Status -->
+                <div class="status" id="status">
+                    <p>Инициализация...</p>
+                </div>
+            </div>
+
+            <!-- Meals Tab -->
+            <div class="tab-pane" id="meals-tab">
+                <div class="section-title">
+                    <h3>🍽️ Сегодняшние приемы пищи</h3>
+                    <p class="section-subtitle">Ваш дневник питания</p>
+                </div>
+
+                <div class="meals-list">
+                    <div class="meal-item">
+                        <div class="meal-time">08:30</div>
+                        <div class="meal-content">
+                            <h4>Завтрак</h4>
+                            <p>Овсянка с ягодами, кофе</p>
+                            <div class="meal-macros">
+                                <span>420 ккал</span>
+                                <span>•</span>
+                                <span>12г белка</span>
+                            </div>
+                        </div>
+                        <div class="meal-icon">🌅</div>
+                    </div>
+
+                    <div class="meal-item">
+                        <div class="meal-time">13:00</div>
+                        <div class="meal-content">
+                            <h4>Обед</h4>
+                            <p>Куриная грудка, рис, овощи</p>
+                            <div class="meal-macros">
+                                <span>620 ккал</span>
+                                <span>•</span>
+                                <span>45г белка</span>
+                            </div>
+                        </div>
+                        <div class="meal-icon">☀️</div>
+                    </div>
+
+                    <div class="meal-item empty">
+                        <div class="meal-time">19:00</div>
+                        <div class="meal-content">
+                            <h4>Ужин</h4>
+                            <p>Еще не добавлено</p>
+                        </div>
+                        <div class="meal-icon">🌙</div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="switchTab('camera')">
+                    <span class="btn-icon">📸</span>
+                    <span class="btn-text">Добавить прием пищи</span>
+                </button>
+            </div>
+
+            <!-- Progress Tab -->
+            <div class="tab-pane" id="progress-tab">
+                <div class="section-title">
+                    <h3>📊 Ваш прогресс</h3>
+                    <p class="section-subtitle">Статистика за неделю</p>
+                </div>
+
+                <div class="progress-cards">
+                    <div class="progress-card">
+                        <div class="progress-header">
+                            <span class="progress-icon">🎯</span>
+                            <span class="progress-title">Цель по калориям</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 62%"></div>
+                        </div>
+                        <div class="progress-stats">
+                            <span>1,240 / 2,000 ккал</span>
+                            <span class="progress-percent">62%</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-card">
+                        <div class="progress-header">
+                            <span class="progress-icon">🔥</span>
+                            <span class="progress-title">Streak</span>
+                        </div>
+                        <div class="streak-display">
+                            <div class="streak-number">7</div>
+                            <div class="streak-label">дней подряд</div>
+                        </div>
+                    </div>
+
+                    <div class="progress-card">
+                        <div class="progress-header">
+                            <span class="progress-icon">📈</span>
+                            <span class="progress-title">Средние калории</span>
+                        </div>
+                        <div class="chart-placeholder">
+                            <div class="chart-bar" style="height: 60%"></div>
+                            <div class="chart-bar" style="height: 75%"></div>
+                            <div class="chart-bar" style="height: 55%"></div>
+                            <div class="chart-bar" style="height: 80%"></div>
+                            <div class="chart-bar" style="height: 70%"></div>
+                            <div class="chart-bar" style="height: 65%"></div>
+                            <div class="chart-bar" style="height: 62%"></div>
+                        </div>
+                        <div class="chart-labels">
+                            <span>Пн</span>
+                            <span>Вт</span>
+                            <span>Ср</span>
+                            <span>Чт</span>
+                            <span>Пт</span>
+                            <span>Сб</span>
+                            <span>Вс</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Tab -->
+            <div class="tab-pane" id="profile-tab">
+                <div class="section-title">
+                    <h3>👤 Профиль</h3>
+                    <p class="section-subtitle">Ваши настройки и цели</p>
+                </div>
+
+                <div class="profile-section">
+                    <div class="profile-avatar-large">👤</div>
+                    <h2 class="profile-name">Пользователь</h2>
+                    <p class="profile-email">user@telegram.com</p>
+                </div>
+
+                <div class="profile-stats-grid">
+                    <div class="profile-stat">
+                        <div class="profile-stat-value">7</div>
+                        <div class="profile-stat-label">Дней streak</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="profile-stat-value">42</div>
+                        <div class="profile-stat-label">Приемов пищи</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="profile-stat-value">2.1кг</div>
+                        <div class="profile-stat-label">Потеряно</div>
+                    </div>
+                </div>
+
+                <div class="profile-menu">
+                    <div class="profile-menu-item">
+                        <span class="profile-menu-icon">🎯</span>
+                        <span class="profile-menu-text">Цели и настройки</span>
+                        <span class="profile-menu-arrow">›</span>
+                    </div>
+                    <div class="profile-menu-item">
+                        <span class="profile-menu-icon">📊</span>
+                        <span class="profile-menu-text">Статистика</span>
+                        <span class="profile-menu-arrow">›</span>
+                    </div>
+                    <div class="profile-menu-item">
+                        <span class="profile-menu-icon">🔔</span>
+                        <span class="profile-menu-text">Уведомления</span>
+                        <span class="profile-menu-arrow">›</span>
+                    </div>
+                    <div class="profile-menu-item">
+                        <span class="profile-menu-icon">ℹ️</span>
+                        <span class="profile-menu-text">О приложении</span>
+                        <span class="profile-menu-arrow">›</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <script src="app.js?v=2"></script>
+    <script src="app.js?v=3"></script>
 </body>
 </html>
