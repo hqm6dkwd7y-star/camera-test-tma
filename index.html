@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Тест Камеры TMA</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🎥 Тест Камеры TMA</h1>
+            <p class="subtitle">Проверка работы камеры в Telegram</p>
+        </header>
+
+        <!-- Camera Preview Container -->
+        <div class="camera-container">
+            <div class="camera-circle">
+                <video id="cameraPreview" autoplay playsinline muted></video>
+                <div id="recordingOverlay" class="recording-overlay hidden">
+                    <div class="timer" id="timer">10</div>
+                </div>
+            </div>
+            <div id="errorMessage" class="error-message hidden"></div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button id="recordBtn" class="btn btn-primary" disabled>
+                <span class="btn-icon">🔴</span>
+                <span class="btn-text">Запись (10 сек)</span>
+            </button>
+
+            <div class="secondary-controls">
+                <button id="micBtn" class="btn btn-secondary">
+                    <span class="btn-icon">🔊</span>
+                    <span class="btn-text">Микрофон</span>
+                </button>
+
+                <button id="switchCameraBtn" class="btn btn-secondary hidden">
+                    <span class="btn-icon">🔄</span>
+                    <span class="btn-text">Камера</span>
+                </button>
+
+                <label for="galleryInput" class="btn btn-secondary">
+                    <span class="btn-icon">📁</span>
+                    <span class="btn-text">Галерея</span>
+                </label>
+                <input type="file" id="galleryInput" accept="video/*" hidden>
+            </div>
+        </div>
+
+        <!-- Video Preview After Recording -->
+        <div id="videoPreviewContainer" class="video-preview-container hidden">
+            <h3>Записанное видео:</h3>
+            <video id="recordedVideo" controls playsinline></video>
+            <div class="video-info">
+                <p id="videoSize"></p>
+            </div>
+            <div class="upload-controls">
+                <button id="uploadBtn" class="btn btn-success">
+                    <span class="btn-icon">📤</span>
+                    <span class="btn-text">Отправить на сервер</span>
+                </button>
+                <button id="shareBtn" class="btn btn-secondary hidden">
+                    <span class="btn-icon">💾</span>
+                    <span class="btn-text">Сохранить</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Status -->
+        <div class="status" id="status">
+            <p>Инициализация...</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
