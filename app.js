@@ -24,7 +24,7 @@ let recordedChunks = [];
 let recordedBlob = null;
 let isRecording = false;
 let isMicEnabled = true;
-let currentFacingMode = 'user';
+let currentFacingMode = 'environment'; // Основная камера для съемки еды
 let countdownInterval = null;
 let availableCameras = [];
 
@@ -100,6 +100,7 @@ async function initCamera() {
         const audioTrack = mediaStream.getAudioTracks()[0];
         console.log('📹 Video track:', videoTrack.label);
         console.log('🎤 Audio track:', audioTrack.label);
+        console.log('📷 Camera mode:', currentFacingMode === 'environment' ? 'Основная (тыловая)' : 'Фронтальная');
         
     } catch (error) {
         console.error('❌ Camera access error:', error);
@@ -261,7 +262,7 @@ async function switchCamera() {
         }
         
         // Toggle facing mode
-        currentFacingMode = currentFacingMode === 'user' ? 'environment' : 'user';
+        currentFacingMode = currentFacingMode === 'environment' ? 'user' : 'environment';
         
         // Reinitialize camera
         await initCamera();
